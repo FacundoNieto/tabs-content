@@ -1,92 +1,89 @@
 /*Estilos de App.css del proyecto React: https://github.dev/Ziratsu/YT-REACT-TABS*/
 *, ::before, ::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    background: #fff;
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: 500px;
-    height: 300px;
-    background: #f1f1f1;
-    margin: 100px auto 0;
-    word-break: break-all;
-    border: 1px solid rgba(0, 0, 0, 0.274);
-  }
-  
-  .bloc-tabs {
-    display: flex;
-  }
-  .tabs {
-  
-    padding: 15px;
-    text-align: center;
-    width: 50%;
-    background: rgba(128, 128, 128, 0.075);
-    cursor: pointer;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.274);
-    box-sizing: content-box;
-    position: relative;
-    outline: none;
-  }
-  .tabs:not(:last-child){
-    border-right: 1px solid rgba(0, 0, 0, 0.274);
-  }
-  
-  .active-tabs  {
-    background: white;
-    border-bottom: 1px solid transparent;
-  }
-  
-  .active-tabs::before {
-    content: "";
-    display: block;
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% + 2px);
-    height: 5px;
-    background: rgb(88, 147, 241);
-  }
-  
-  
-  
-  button {
-    border: none;
-    
-  }
-  .content-tabs {
-    flex-grow : 1;
-  }
-  .content {
-    background: white;
-    padding: 20px;
-    width: 100%;
-    height: 100%;
-    display: none;
-  }
-  .content h2 {
-    padding: 0px 0 5px 0px;
-  }
-  .content hr {
-    width: 100px;
-    height: 2px;
-    background: #222;
-    margin-bottom: 5px;
-  }
-  .content p {
-    width: 100%;
-    height: 100%;
-  }
-  .active-content {
-    display: block;
-  }
-  
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #fff;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 500px;
+  height: 300px;
+  background: #f1f1f1;
+  margin: 100px auto 0;
+  word-break: break-word; /*estaba en break-all pero lo dejé en break-word, con break-all cortaba las palabras cuando llegaba al límite del contenedor...*/
+  border: 1px solid rgba(0, 0, 0, 0.274);
+}
+
+.bloc-tabs {
+  display: flex; /*ubico las tabs una al lado de otra*/
+}
+.tabs {
+
+  padding: 15px;
+  text-align: center;
+  width: 28%; /*varié este valor y noté que con 28% ya alcanzaba*/
+  background: rgba(128, 128, 128, 0.075);
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.274);
+  box-sizing: content-box;
+  position: relative; /*clave, creo que gracias a esto es que funciona correctamente el posicionamiento absoluto (absolute) de la clase active-tabs::before*/
+  outline: none; /*no hace nada*/
+}
+.tabs:not(:last-child){ /*selecciona las clases que no son :last-child (todas menos la última)*/
+  border-right: 1px solid rgba(0, 0, 0, 0.274); /*son los bordes derechos de las tabs, para separarlas, la última ya tiene borde derecho (es el borde del contenedor directamente)*/
+}
+
+.active-tabs  {
+  background: white;
+  border-bottom: 1px solid transparent; /*hago que el borde inferior se confunda con el fondo para que se una la tab con el contenido*/
+}
+
+.active-tabs::before { /*es el borde de arriba de las tabs que están activas*/
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px; /*hace que este borde suba un poco y tape el verdadero borde de la tab*/
+  left: 50%; /*posicionado correcto en el eje horizontal*/
+  transform: translateX(-50%); /*no hace mucho*/
+  /*la transformación de arriba funciona con la combinación left:50%, pero era más simple hacer left=-1px y no usar ninguna transformación porque no hace prácticamente nada*/
+  width: calc(100% + 2px);
+  height: 5px;
+  background: rgb(205, 31, 31);
+}
+
+button {
+  border: none;
+}
+.content-tabs {
+  flex-grow : 1; /*para que ocupe todo el espacio del contenedor (container)*/
+}
+.content {
+  background: white;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: none; /*por defecto no muestro el contenido, a no ser que esta clase esté combinada con la clase "active-content", que al estar definida en este archivo css después (al final del archivo), prevalece sobre esta clase*/
+}
+.content h2 {
+  padding: 0px 0 5px 0px;
+}
+.content hr {
+  width: 100px;
+  height: 2px;
+  background: #222;
+  margin-bottom: 5px;
+}
+.content p {
+  width: 100%;
+  height: 100%;
+}
+.active-content {
+  display: block; /*muestra el contenido. Sin esta clase prevalecería el display:none de la clase content*/
+}
